@@ -1,5 +1,12 @@
 let _username = '';
 
+class User {
+  constructor(username, picture) {
+    this.username = username;
+    this.picture = picture;
+  }
+}
+
 function signUp() {
   const username = document.querySelector('#username').value;
   const picture = document.querySelector('#picture').value;
