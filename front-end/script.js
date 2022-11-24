@@ -1,30 +1,31 @@
-let _username = '';
-
 class User {
-  constructor(username, picture) {
-    this.username = username;
-    this.picture = picture;
+  _username;
+
+  constructor() {
+    this._username = '';
+  }
+
+  signUp() {
+    const username = document.querySelector('#username').value;
+    const picture = document.querySelector('#picture').value;
+  
+    axios
+      .post('http://localhost:5001/sign-up', {
+        username,
+        avatar: picture
+      })
+      .then(() => {
+        this._username = username;
+        loadTweets();
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Erro ao fazer cadastro! Consulte os logs.');
+      });
   }
 }
 
-function signUp() {
-  const username = document.querySelector('#username').value;
-  const picture = document.querySelector('#picture').value;
-
-  axios
-    .post('http://localhost:5001/sign-up', {
-      username,
-      avatar: picture
-    })
-    .then(() => {
-      _username = username;
-      loadTweets();
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Erro ao fazer cadastro! Consulte os logs.');
-    });
-}
+const user = new User();
 
 function loadTweets() {
   axios.get('http://localhost:5001/tweets').then(res => {
