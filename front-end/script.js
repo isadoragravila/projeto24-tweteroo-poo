@@ -16,7 +16,7 @@ class User {
       })
       .then(() => {
         this._username = username;
-        feed.loadTweets();
+        new Feed().loadTweets();
       })
       .catch(err => {
         console.error(err);
@@ -34,7 +34,7 @@ class User {
       })
       .then(() => {
         document.querySelector('#tweet').value = '';
-        feed.loadTweets();
+        new Feed().loadTweets();
       })
       .catch(err => {
         console.error(err);
@@ -83,5 +83,19 @@ class Feed {
   }
 }
 
-const user = new User();
-const feed = new Feed();
+class Tweetero {
+  constructor() {
+    this.user = new User();
+    this.signUpButton = document.querySelector('.btn-enviar');
+    this.postTweetButton = document.querySelector('.btn-enviar-tweet');
+  }
+
+  activateButtons() {
+    this.signUpButton.addEventListener("click", () => this.user.signUp());
+    this.postTweetButton.addEventListener("click", () => this.user.postTweet());
+  }
+}
+
+window.onload = () => {
+  new Tweetero().activateButtons();
+}
