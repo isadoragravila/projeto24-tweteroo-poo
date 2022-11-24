@@ -23,6 +23,24 @@ class User {
         alert('Erro ao fazer cadastro! Consulte os logs.');
       });
   }
+
+  postTweet() {
+    const tweet = document.querySelector('#tweet').value;
+
+    axios
+      .post('http://localhost:5001/tweets', {
+        username: this._username,
+        tweet
+      })
+      .then(() => {
+        document.querySelector('#tweet').value = '';
+        loadTweets();
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Erro ao fazer tweet! Consulte os logs.');
+      });
+  }
 }
 
 const user = new User();
@@ -54,24 +72,6 @@ function loadTweets() {
     document.querySelector('.pagina-inicial').classList.add('hidden');
     document.querySelector('.tweets-page').classList.remove('hidden');
   });
-}
-
-function postTweet() {
-  const tweet = document.querySelector('#tweet').value;
-
-  axios
-    .post('http://localhost:5001/tweets', {
-      username: _username,
-      tweet
-    })
-    .then(() => {
-      document.querySelector('#tweet').value = '';
-      loadTweets();
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Erro ao fazer tweet! Consulte os logs.');
-    });
 }
 
 function escapeHtml(unsafe) {
