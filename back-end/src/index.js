@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { json } from 'express';
 import { usuarios, tweets } from './data/data.js';
 import { AuthRouter } from './routers/authRouter.js';
+import { TweetRouter } from './routers/tweetRouter.js';
 
 const app = express();
 
@@ -10,20 +11,7 @@ app.use(cors());
 app.use(json());
 
 app.use(new AuthRouter().router);
-
-app.post('/tweets', (req, res) => {
-  const { tweet, username } = req.body;
-
-  if (!username || !tweet) {
-    return res.status(400).send('Todos os campos são obrigatórios!');
-  }
-
-  const { avatar } = usuarios.find(user => user.username === username);
-
-  tweets.push({ username, tweet, avatar });
-
-  res.status(201).send('OK, seu tweet foi criado');
-});
+app.use(new TweetRouter().router);
 
 app.get('/tweets/:username', (req, res) => {
   const { username } = req.params;
