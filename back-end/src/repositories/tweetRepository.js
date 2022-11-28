@@ -8,4 +8,8 @@ export class TweetRepository {
   getTweetByUser(username) {
     return tweets.filter(t => t.username === username);
   }
+
+  getTweets() {
+    return [...tweets];
+  }
 }

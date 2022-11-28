@@ -5,6 +5,7 @@ export class TweetRouter {
   constructor() {
     this.router = Router();
     this.router.post("/tweets",  new TweetController().createTweet);
-    this.router.get("/tweets/:username",  new TweetController().createTweet);
+    this.router.get("/tweets/:username",  new TweetController().getTweetsByUser);
+    this.router.get("/tweets", new TweetController().getTweets);
   }
 }
