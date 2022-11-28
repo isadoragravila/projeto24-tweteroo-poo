@@ -21,7 +21,7 @@ export class TweetService {
     const start = (page - 1) * limite;
     const end = page * limite;
 
-    const tweets = new TweetRepository().getTweets();
+    const tweets = new TweetRepository().tweets;
 
     if (tweets.length <= 10) {
       return tweets.reverse();
