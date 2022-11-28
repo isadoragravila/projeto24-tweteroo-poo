@@ -13,14 +13,6 @@ app.use(json());
 app.use(new AuthRouter().router);
 app.use(new TweetRouter().router);
 
-app.get('/tweets/:username', (req, res) => {
-  const { username } = req.params;
-
-  const tweetsDoUsuario = tweets.filter(t => t.username === username);
-
-  res.status(200).send(tweetsDoUsuario);
-});
-
 app.get('/tweets', (req, res) => {
   const { page } = req.query;
 
